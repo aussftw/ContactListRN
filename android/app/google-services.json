@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "186148748040",
+    "project_id": "rncontacts-748ea",
+    "storage_bucket": "rncontacts-748ea.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:186148748040:android:e79bc865be93ac44ae8abd",
+        "android_client_info": {
+          "package_name": "com.kaminskiy.applist"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "186148748040-u89ogr5cutv9s6ff3nrc148jn9b2no8n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsBvOYxhWPR2ukKkdQ35ZGF9QrqSgLIas"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "186148748040-u89ogr5cutv9s6ff3nrc148jn9b2no8n.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "186148748040-88gbj7l2u9g6iptjr87fgnun7omjmn1r.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.rn-contactList"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
