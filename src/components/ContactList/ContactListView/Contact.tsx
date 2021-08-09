@@ -23,6 +23,7 @@ const Contact = ({item}: IContactView) => {
   } = item.item;
 
   const theme = useTheme();
+  console.log(contact_picture);
 
   return (
     <TouchableOpacity
@@ -39,12 +40,16 @@ const Contact = ({item}: IContactView) => {
       }>
       <Box
         backgroundColor="white"
-        padding="m"
+        shadowColor="black"
+        shadowOpacity={0.25}
+        shadowRadius={3.84}
+        shadowOffset={{width: 0, height: 2}}
+        elevation={5}
         flexDirection="row"
         alignItems="center"
         justifyContent="space-between">
         <Box flexDirection="row" alignItems="center">
-          <Box pr="l">
+          <Box height={100} width={100}>
             {contact_picture ? (
               <Image
                 source={{uri: contact_picture}}

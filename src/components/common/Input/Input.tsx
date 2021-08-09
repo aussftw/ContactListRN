@@ -59,7 +59,11 @@ const Input = ({
         alignItems="center"
         paddingHorizontal="s"
         borderRadius={theme.borderRadiuses.s}
-        borderColor={reColor}>
+        borderColor={reColor}
+        borderBottomWidth={0.7}
+        borderTopWidth={0.7}
+        borderStartWidth={1}
+        borderEndWidth={1}>
         <Box>{icon && icon}</Box>
         <TextInput
           value={field.value}
@@ -67,7 +71,6 @@ const Input = ({
           style={[style]}
           underlineColorAndroid="transparent"
           placeholderTextColor={color}
-          maxLength={24}
           {...props}
         />
       </Box>

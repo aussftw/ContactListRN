@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import Modal from '../../common/Modal/index';
-import {Box, useTheme, Text} from '../../../theme';
+import {Box, Text, theme} from '../../../theme';
 import Icon from '../../common/Icon/Icon';
 import EmptyContactList from './EmptyContactList';
 import Contact from './Contact';
@@ -17,8 +17,6 @@ interface IContactListView {
 
 const ConctactListView = ({data, loading, order}: IContactListView) => {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
-
-  // const theme = useTheme(); // for icon color
   const navigation = useNavigation();
   const renderItem = (item: IContact) => <Contact item={item} />;
 
@@ -78,7 +76,7 @@ const ConctactListView = ({data, loading, order}: IContactListView) => {
         <TouchableOpacity
           style={styles.floatingButton}
           onPress={() => navigation.navigate(CREATE_CONTACT)}>
-          <Icon name="add" type="MaterialIcon" size={35} color="grey" />
+          <Icon name="add" type="MaterialIcon" size={35} color="white" />
         </TouchableOpacity>
       </Box>
     </>
@@ -89,13 +87,21 @@ const styles = StyleSheet.create({
   floatingButton: {
     position: 'absolute',
     bottom: 10,
-    right: 10,
+    right: 15,
     height: 50,
     width: 50,
     borderRadius: 25,
-    backgroundColor: '#ff19',
+    backgroundColor: theme.colors.primary,
     alignItems: 'center',
     justifyContent: 'center',
+    shadowColor: theme.colors.black,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
 });
 

@@ -17,9 +17,8 @@ const Switch = ({style, control, name, ...props}: ISwitch) => {
 
   return (
     <RNSwitch
-      trackColor={{false: '#767577', true: '#ff2333'}}
-      //thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
-      ios_backgroundColor="#3e3e3e"
+      trackColor={{false: theme.colors.darkGrey, true: theme.colors.primary}}
+      ios_backgroundColor={theme.colors.darkGrey}
       value={field.value}
       onValueChange={field.onChange}
       style={[style]}

@@ -63,6 +63,7 @@ const RegisterView = ({loading, sendForm}: IRegisterView) => {
                 control={control}
                 placeholder="Enter your username"
                 error={errors.username || error?.username?.[0]}
+                autoFocus
               />
               <Input
                 label="Fist Name"
@@ -99,11 +100,13 @@ const RegisterView = ({loading, sendForm}: IRegisterView) => {
                         type="FeatherIcon"
                         size={20}
                         name={!showPassword ? 'eye' : 'eye-off'}
+                        color={theme.colors.primary}
                       />
                     </Box>
                   </TouchableOpacity>
                 }
                 name="password"
+                maxLength={24}
                 control={control}
               />
               <Input
@@ -112,6 +115,7 @@ const RegisterView = ({loading, sendForm}: IRegisterView) => {
                 iconPosistion="right"
                 error={errors.confirm_password}
                 secureTextEntry
+                maxLength={24}
                 icon={
                   <TouchableOpacity
                     onPress={() => setShowPassword(!showPassword)}>
@@ -120,6 +124,7 @@ const RegisterView = ({loading, sendForm}: IRegisterView) => {
                         type="FeatherIcon"
                         size={20}
                         name={!showPassword ? 'eye' : 'eye-off'}
+                        color={theme.colors.primary}
                       />
                     </Box>
                   </TouchableOpacity>

@@ -164,6 +164,7 @@ const CreateContactView = ({
             label="First name"
             name="first_name"
             error={errors.first_name}
+            autoFocus
           />
           <Input
             control={control}
@@ -185,6 +186,7 @@ const CreateContactView = ({
             name="phone_number"
             error={errors.phone_number}
             autoCompleteType="tel"
+            keyboardType="number-pad"
           />
           <Box
             flexDirection="row"

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Box, Text} from '../../../theme';
+import {Box, Text, useTheme} from '../../../theme';
 import {Container, Input, Button, Icon} from '../../common/index';
 import {useForm, SubmitHandler} from 'react-hook-form';
 import {ILoginForm} from '../../../types/login';
@@ -10,7 +10,9 @@ import {useNavigation} from '@react-navigation/native';
 import {REGISTER} from '../../../constants/routeNames';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {ScaledSheet, scale, moderateScale} from 'react-native-size-matters';
+import {useScreen} from '../../../hooks/useScreen';
 import LoginSchema from './ LoginValidation';
+import {usePlatform} from '../../../hooks/usePlatform';
 
 interface ILoginView {
   data?: any;
@@ -20,9 +22,13 @@ interface ILoginView {
 const logo = require('../../../assets/images/logo.png');
 
 const LoginView = ({data, loading}: ILoginView) => {
-  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState<boolean>(true);
   const navigation = useNavigation();
+  const theme = useTheme();
   const dispatch = useDispatch();
+  const screen = useScreen();
+  const platform = usePlatform();
+
   const {
     handleSubmit,
     control,
@@ -37,6 +43,9 @@ const LoginView = ({data, loading}: ILoginView) => {
   });
 
   const onSubmit: SubmitHandler<ILoginForm> = data => dispatch(loginUser(data));
+
+  console.log(screen.isSmallDevice, 'DEVICE');
+
   return (
     <>
       <Container>
@@ -48,13 +57,16 @@ const LoginView = ({data, loading}: ILoginView) => {
             <Text variant="title2">Welcome to RNContacts</Text>
             <Text variant="title1">Please login bellow</Text>
           </Box>
-          <Box marginTop="l" marginHorizontal="xl">
+          <Box
+            marginTop="l"
+            marginHorizontal={screen.isSmallDevice ? 'l' : 'xl'}>
             <Input
               control={control}
               label="Username"
               name="username"
               placeholder="Enter your username"
               error={errors.username}
+              autoFocus
             />
             <Input
               control={control}
@@ -64,6 +76,7 @@ const LoginView = ({data, loading}: ILoginView) => {
               placeholder="Enter your password"
               iconPosistion="right"
               error={errors.password}
+              maxLength={24}
               icon={
                 <TouchableOpacity
                   onPress={() => setShowPassword(!showPassword)}>
@@ -72,12 +85,15 @@ const LoginView = ({data, loading}: ILoginView) => {
                       type="FeatherIcon"
                       size={20}
                       name={!showPassword ? 'eye' : 'eye-off'}
+                      color={theme.colors.primary}
                     />
                   </Box>
                 </TouchableOpacity>
               }
             />
-            <Box marginTop="xl" marginHorizontal="xl">
+            <Box
+              marginTop="xl"
+              marginHorizontal={screen.isSmallDevice ? 'l' : 'xl'}>
               <Button
                 label="Submit"
                 loading={loading}
@@ -87,11 +103,31 @@ const LoginView = ({data, loading}: ILoginView) => {
             </Box>
           </Box>
         </Box>
+        {screen.isSmallDevice ? (
+          <TouchableOpacity
+            onPress={() => navigation.navigate(REGISTER)}
+            style={
+              screen.isSmallDevice
+                ? [styles.floatingLink]
+                : [styles.floatingLinkPostion, styles.floatingLink]
+            }>
+            <Box alignItems="center" marginTop="l" flexDirection="row">
+              <Text variant="body">Need a new account? </Text>
+              <Text variant="body" color="primary">
+                Register
+              </Text>
+            </Box>
+          </TouchableOpacity>
+        ) : null}
       </Container>
-      <Box>
+      {screen.isSmallDevice ? null : (
         <TouchableOpacity
           onPress={() => navigation.navigate(REGISTER)}
-          style={styles.floatingLink}>
+          style={
+            screen.isSmallDevice
+              ? [styles.floatingLink]
+              : [styles.floatingLinkPostion, styles.floatingLink]
+          }>
           <Box alignItems="center" marginTop="l" flexDirection="row">
             <Text variant="body">Need a new account? </Text>
             <Text variant="body" color="primary">
@@ -99,7 +135,7 @@ const LoginView = ({data, loading}: ILoginView) => {
             </Text>
           </Box>
         </TouchableOpacity>
-      </Box>
+      )}
     </>
   );
 };
@@ -112,11 +148,18 @@ const styles = ScaledSheet.create({
     width: moderateScale(200),
   },
   floatingLink: {
-    position: 'absolute',
     bottom: scale(10),
+    marginBottom: scale(10),
+    alignItems: 'center',
+  },
+
+  floatingLinkPostion: {
     left: 0,
     right: 0,
-    alignItems: 'center',
-    marginBottom: scale(10),
+    position: 'absolute',
+  },
+
+  floatingLinkInvisible: {
+    display: 'none',
   },
 });
