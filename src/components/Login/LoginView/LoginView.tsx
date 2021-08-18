@@ -11,8 +11,8 @@ import {REGISTER} from '../../../constants/routeNames';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {ScaledSheet, scale, moderateScale} from 'react-native-size-matters';
 import {useScreen} from '../../../hooks/useScreen';
-import LoginSchema from './ LoginValidation';
 import {usePlatform} from '../../../hooks/usePlatform';
+import LoginSchema from './ LoginValidation';
 
 interface ILoginView {
   data?: any;
@@ -103,11 +103,11 @@ const LoginView = ({data, loading}: ILoginView) => {
             </Box>
           </Box>
         </Box>
-        {screen.isSmallDevice ? (
+        {screen.isSmallDevice || platform.isAndroid ? (
           <TouchableOpacity
             onPress={() => navigation.navigate(REGISTER)}
             style={
-              screen.isSmallDevice
+              screen.isSmallDevice || platform.isAndroid
                 ? [styles.floatingLink]
                 : [styles.floatingLinkPostion, styles.floatingLink]
             }>
@@ -120,7 +120,7 @@ const LoginView = ({data, loading}: ILoginView) => {
           </TouchableOpacity>
         ) : null}
       </Container>
-      {screen.isSmallDevice ? null : (
+      {screen.isSmallDevice || platform.isAndroid ? null : (
         <TouchableOpacity
           onPress={() => navigation.navigate(REGISTER)}
           style={
