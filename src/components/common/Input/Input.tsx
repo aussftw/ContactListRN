@@ -1,20 +1,19 @@
-import React, {ReactElement, ReactNode, Ref} from 'react';
+import React, {ReactElement, ReactNode, Ref, FC} from 'react';
 import {TextInput, StyleSheet, TextInputProps} from 'react-native';
 import {Box, Text, useTheme} from '../../../theme';
-import {useController} from 'react-hook-form'; //
+import {useController, UseControllerProps} from 'react-hook-form'; //
 
-interface IInput extends TextInputProps {
-  style?: any;
+interface IInput extends UseControllerProps {
+  style?: {};
   icon?: ReactElement | ReactNode;
   iconPosistion?: string;
-  error?: string;
+  error?: {message: string; required: string} | undefined;
   label: string;
-  control?: any;
-  name?: string;
+  name: string;
   ref?: Ref<any>;
 }
 
-const Input = ({
+const Input: FC<IInput> = ({
   label,
   style,
   icon,
@@ -25,7 +24,6 @@ const Input = ({
   ...props
 }: IInput) => {
   const theme = useTheme();
-
   const {field} = useController({name, control, defaultValue: ''});
 
   const getFlexDirection = () => {
@@ -41,6 +39,8 @@ const Input = ({
 
   const reColor = error?.message ? 'danger' : 'primary';
   const color = theme.colors[reColor];
+
+  console.log(error, 'err');
 
   return (
     <Box paddingVertical="xs">

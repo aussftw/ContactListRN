@@ -10,7 +10,7 @@ import {CREATE_CONTACT} from '../../../constants/routeNames';
 import {FlatList, TouchableOpacity, StyleSheet} from 'react-native';
 
 interface IContactListView {
-  data: any;
+  data: Array<IContact> | [];
   loading: boolean;
   order: string | null;
 }
@@ -45,7 +45,7 @@ const ConctactListView = ({data, loading, order}: IContactListView) => {
         <FlatList
           renderItem={renderItem}
           keyExtractor={item => String(item?.id)}
-          data={data.sort((a: IContact, b: IContact) => {
+          data={data.sort((a, b) => {
             if (order === 'First name') {
               if (b.first_name > a.last_name) {
                 return -1;

@@ -1,5 +1,5 @@
-import React, {ReactElement, ReactNode} from 'react';
-import {ScrollView, SafeAreaView} from 'react-native';
+import React, {ReactElement, ReactNode, FC} from 'react';
+import {ScrollView, SafeAreaView, StyleProp} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {Box} from '../../../theme';
 import {useScreen} from '../../../hooks/useScreen';
@@ -9,7 +9,7 @@ interface IProps {
   style?: string;
 }
 
-const Container = ({children, style}: IProps) => {
+const Container: FC<IProps> = ({children, style}: IProps) => {
   const screen = useScreen();
   return (
     <KeyboardAwareScrollView>

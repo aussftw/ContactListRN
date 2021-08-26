@@ -1,19 +1,22 @@
-import React from 'react';
-import {Box, Text} from '../../theme';
+import React, {FC} from 'react';
+import {Box, Text, useTheme} from '../../theme';
 import {IContact} from '../../types/contact';
 import {TouchableOpacity, ScrollView} from 'react-native';
-import ImageComponent from './ImageComponent';
-import Icon from '../common/Icon/Icon';
 import {Button} from '../../components/common/index';
 import {CREATE_CONTACT} from '../../constants/routeNames';
 import {useNavigation} from '@react-navigation/native';
+import ImageComponent from './ImageComponent';
+import Icon from '../common/Icon/Icon';
 
 interface IContactDetilsView {
   contact: IContact;
 }
 
-const ContactDetailsView = ({contact}: IContactDetilsView) => {
+const ContactDetailsView: FC<IContactDetilsView> = ({
+  contact,
+}: IContactDetilsView) => {
   const navigation = useNavigation();
+  const theme = useTheme();
   const {
     country_code,
     id,
@@ -59,7 +62,12 @@ const ContactDetailsView = ({contact}: IContactDetilsView) => {
           {connectionOptions.map(({onPress, label, iconName}) => (
             <TouchableOpacity onPress={onPress} key={label}>
               <Box alignItems="center">
-                <Icon name={iconName} size={35} type="MaterialIcon" />
+                <Icon
+                  name={iconName}
+                  size={35}
+                  type="MaterialIcon"
+                  color={theme.colors.primary}
+                />
                 <Text mt="s" color="secondary" variant="body">
                   {label}
                 </Text>
@@ -69,13 +77,18 @@ const ContactDetailsView = ({contact}: IContactDetilsView) => {
         </Box>
         <Box backgroundColor="darkGrey" height={0.4} />
 
-        <TouchableOpacity onPress={() => console.log('kek')}>
+        <TouchableOpacity onPress={() => true}>
           <Box
             flexDirection="row"
             alignItems="center"
             marginVertical="xl"
             marginHorizontal="xl">
-            <Icon size={34} name="skype" type="AntDesignIcon" />
+            <Icon
+              size={34}
+              name="skype"
+              type="AntDesignIcon"
+              color={theme.colors.primary}
+            />
             <Text color="secondary" variant="body" ml="l">
               Skype Call to phone {country_code} {phone_number}
             </Text>

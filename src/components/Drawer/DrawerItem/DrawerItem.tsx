@@ -1,5 +1,5 @@
-import React from 'react';
-import {Box, Text} from '../../../theme';
+import React, {FC} from 'react';
+import {Box, Text, useTheme} from '../../../theme';
 import {TouchableOpacity} from 'react-native';
 import Icon from '../../common/Icon/Icon';
 
@@ -11,13 +11,24 @@ interface IDrawerItem {
   onPress: () => void;
 }
 
-const DrawerItem = ({label, screen, onPress, icon}: IDrawerItem) => {
+const DrawerItem: FC<IDrawerItem> = ({
+  label,
+  screen,
+  onPress,
+  icon,
+}: IDrawerItem) => {
+  const theme = useTheme();
   return (
     <Box key={screen}>
       <TouchableOpacity key={screen} onPress={onPress}>
         <Box flexDirection="row" alignItems="center">
           <Box mr="m">
-            <Icon name={icon} size={20} type="MaterialIcon" />
+            <Icon
+              name={icon}
+              size={20}
+              type="MaterialIcon"
+              color={theme.colors.secondary}
+            />
           </Box>
           <Text variant="nav">{label}</Text>
         </Box>

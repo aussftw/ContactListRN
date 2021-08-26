@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, FC} from 'react';
 import {useForm, SubmitHandler} from 'react-hook-form';
 import {Box, Text} from '../../theme';
 import {IContact} from '../../types/contact';
@@ -23,7 +23,7 @@ import {
   ImagePicker,
 } from '../common';
 
-interface ICreateComponentView {
+interface ICreateContactView {
   sheetRef?: any;
   closeSheet?: any;
   openSheet?: any;
@@ -35,11 +35,11 @@ interface ICodeInfo {
   name: string;
 }
 
-const CreateContactView = ({
+const CreateContactView: FC<ICreateContactView> = ({
   sheetRef,
   closeSheet,
   openSheet,
-}: ICreateComponentView) => {
+}: ICreateContactView) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const {params} = useRoute();

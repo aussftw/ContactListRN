@@ -1,4 +1,4 @@
-import React, {ReactNode, ReactElement, ReactChild} from 'react';
+import React, {ReactNode, ReactElement, ReactChild, FC} from 'react';
 import {
   Modal as ModalRN,
   TouchableOpacity,
@@ -15,10 +15,9 @@ interface IModal {
   closeOnTouchOutSide: boolean;
   title?: string;
   modalHeader?: boolean;
-  height?: any;
 }
 
-const Modal = ({
+const Modal: FC<IModal> = ({
   children,
   modalVisible,
   setModalVisble,
@@ -40,7 +39,6 @@ const Modal = ({
             backgroundColor: 'rgba(0,0,0, 0.5)',
           }}
           flex={1} // ???
-          //  minHeight={height}
           justifyContent="center">
           <Box
             borderRadius={20}

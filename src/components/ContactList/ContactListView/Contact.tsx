@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {Box, Text, useTheme} from '.././../../theme';
 import {TouchableOpacity, Image} from 'react-native';
 import {IContact} from '../../../types/contact';
@@ -10,7 +10,7 @@ interface IContactView {
   item: IContact;
 }
 
-const Contact = ({item}: IContactView) => {
+const Contact: FC<IContactView> = ({item}: IContactView) => {
   const navigation = useNavigation();
   const {
     country_code,
@@ -23,7 +23,7 @@ const Contact = ({item}: IContactView) => {
   } = item.item;
 
   const theme = useTheme();
-  console.log(contact_picture);
+  //console.log(contact_picture);
 
   return (
     <TouchableOpacity

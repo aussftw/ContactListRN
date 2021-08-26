@@ -16,9 +16,6 @@ const ContactDetails: React.FC = () => {
   const navigation = useNavigation();
 
   const {setOptions} = useNavigation();
-
-  console.log(params, 'screen');
-
   const [isFavorite, setFavorite] = useState<boolean>(params.is_favorite); // update
 
   useEffect(() => {

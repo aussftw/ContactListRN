@@ -17,9 +17,9 @@ import {IContact} from '../../types/contact';
 
 interface IInitialState {
   isLogined: boolean;
-  contacts: any;
+  contacts: Array<IContact> | [];
   contact: IContact | null;
-  error: any;
+  error: {};
   loading: boolean;
 }
 
@@ -59,7 +59,9 @@ const contactsReducer = (
       return {
         ...state,
         loading: false,
-        contacts: state.contacts.filter(item => item.id !== action.data),
+        contacts: state.contacts.filter(
+          (item: IContact) => item.id !== action.data,
+        ),
       };
     case DELETE_CONTACT_FAILED:
       return {...state, loading: false, error: action.error};
@@ -71,7 +73,7 @@ const contactsReducer = (
       return {
         ...state,
         loading: false,
-        contacts: state.contacts.map(item => {
+        contacts: state.contacts.map((item: IContact) => {
           if (item.id === action.data.id) {
             return action.data;
           } else {

@@ -12,7 +12,7 @@ interface IButton {
   icon?: ReactElement | ReactNode;
 }
 
-const Button = ({
+const Button: React.FC<IButton> = ({
   label,
   onPress,
   height,

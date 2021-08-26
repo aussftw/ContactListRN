@@ -1,17 +1,17 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {Box, Text} from '../../theme';
 import {TouchableOpacity, ScrollView} from 'react-native';
-import {ISettingOption} from '../../types/settingOption';
+import {ISettingOption, IPrefOption} from '../../types/settingOption';
 import {Modal, Icon} from '../common/';
 
 interface ISettings {
   modalVisible: boolean;
   setModalVisible: (modalVisible: boolean) => void;
-  prefOptions: any;
-  settingsOptions: any;
+  prefOptions: Array<IPrefOption>;
+  settingsOptions: Array<ISettingOption>;
 }
 
-const SettingsView = ({
+const SettingsView: FC<ISettings> = ({
   settingsOptions,
   modalVisible,
   setModalVisible,

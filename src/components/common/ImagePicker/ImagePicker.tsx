@@ -1,16 +1,16 @@
-import React, {ReactElement, ReactNode, forwardRef} from 'react';
+import React, {ReactElement, ReactNode, forwardRef, FC} from 'react';
 import {Icon} from '..';
 import {Box, Text} from '../../..';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import {TouchableOpacity, Platform} from 'react-native';
 import ImagePickerCropper from 'react-native-image-crop-picker';
 
-interface Props {
+interface IProps {
   children?: ReactElement | ReactNode;
   onFileSelected: (image: any) => void;
 }
 
-const ImagePicker = forwardRef(({onFileSelected}: Props, ref) => {
+const ImagePicker: FC<IProps> = forwardRef(({onFileSelected}: IProps, ref) => {
   const options = [
     {
       name: 'Take from camera',

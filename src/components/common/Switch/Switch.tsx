@@ -1,18 +1,15 @@
-import React, {Ref} from 'react';
-import {Switch as RNSwitch, SwitchProps} from 'react-native';
+import React, {Ref, FC} from 'react';
+import {Switch as RNSwitch} from 'react-native';
 import {useTheme} from '../../../theme';
-import {useController} from 'react-hook-form'; //
-
-interface ISwitch extends SwitchProps {
+import {useController, UseControllerProps} from 'react-hook-form'; //
+interface ISwitch extends UseControllerProps {
   style?: any;
-  control?: any;
   name: string;
   ref?: Ref<any>;
 }
 
-const Switch = ({style, control, name, ...props}: ISwitch) => {
+const Switch: FC<ISwitch> = ({style, control, name, ...props}: ISwitch) => {
   const theme = useTheme();
-
   const {field} = useController({name, control, defaultValue: ''});
 
   return (

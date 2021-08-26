@@ -13,6 +13,7 @@ import {
   EDIT_CONTACT_SUCCESS,
 } from '../../constants/actionTypes/index';
 import axiosInstance from '../../helpers/axiosInterceptor';
+import {AppDispatch} from '../store';
 import {IContact} from '../../types/contact';
 
 type GetContactsLoadingType = {
@@ -173,7 +174,7 @@ export const setEditContactSuccess = (
   };
 };
 
-export const getContacts = (dispatch: any) => {
+export const getContacts = (dispatch: AppDispatch) => {
   dispatch(setGetContactsLoading(true));
   dispatch(setGetContactsError({}));
   axiosInstance
@@ -190,36 +191,37 @@ export const getContacts = (dispatch: any) => {
     });
 };
 
-export const createContact = (form: IContact) => async (dispatch: any) => {
-  const req = {
-    country_code: form.country_code || '',
-    first_name: form.first_name || '',
-    last_name: form.last_name || '',
-    phone_number: form.phone_number || '',
-    contact_picture: form.contact_picture || null,
-    is_favorite: form.is_favorite || false,
+export const createContact =
+  (form: IContact) => async (dispatch: AppDispatch) => {
+    const req = {
+      country_code: form.country_code || '',
+      first_name: form.first_name || '',
+      last_name: form.last_name || '',
+      phone_number: form.phone_number || '',
+      contact_picture: form.contact_picture || null,
+      is_favorite: form.is_favorite || false,
+    };
+    dispatch(setCreateContactLoading(true));
+    dispatch(setCreateContactError({}));
+    axiosInstance
+      .post('/contacts/', req)
+      .then(res => {
+        // console.log(res.data, 'create contact res');
+        dispatch(setCreateContactLoading(false));
+        dispatch(setCreateContactSuccess(res.data));
+      })
+      .catch(err => {
+        console.log(err, 'create contact err');
+        dispatch(setCreateContactLoading(false));
+        dispatch(setCreateContactError(err));
+      })
+      .then(() => {
+        setGetContactsLoading(true);
+        dispatch(getContacts);
+      });
   };
-  dispatch(setCreateContactLoading(true));
-  dispatch(setCreateContactError({}));
-  axiosInstance
-    .post('/contacts/', req)
-    .then(res => {
-      // console.log(res.data, 'create contact res');
-      dispatch(setCreateContactLoading(false));
-      dispatch(setCreateContactSuccess(res.data));
-    })
-    .catch(err => {
-      console.log(err, 'create contact err');
-      dispatch(setCreateContactLoading(false));
-      dispatch(setCreateContactError(err));
-    })
-    .then(() => {
-      setGetContactsLoading(true);
-      dispatch(getContacts);
-    });
-};
 
-export const deleteContact = (id: string) => (dispatch: any) => {
+export const deleteContact = (id: string) => (dispatch: AppDispatch) => {
   dispatch(setDeleteContactLoading(true));
   dispatch(setDeleteContactError({}));
   axiosInstance
@@ -236,30 +238,31 @@ export const deleteContact = (id: string) => (dispatch: any) => {
     });
 };
 
-export const editContact = (id: string, data: IContact) => (dispatch: any) => {
-  const req = {
-    country_code: data.country_code || '',
-    first_name: data.first_name || '',
-    last_name: data.last_name || '',
-    phone_number: data.phone_number || '',
-    contact_picture: data.contact_picture || null,
-    is_favorite: data.is_favorite || false,
+export const editContact =
+  (id: string, data: IContact) => (dispatch: AppDispatch) => {
+    const req = {
+      country_code: data.country_code || '',
+      first_name: data.first_name || '',
+      last_name: data.last_name || '',
+      phone_number: data.phone_number || '',
+      contact_picture: data.contact_picture || null,
+      is_favorite: data.is_favorite || false,
+    };
+    dispatch(setEditContactLoading(true));
+    dispatch(setEditContactError({}));
+    axiosInstance
+      .put(`/contacts/${id}`, req)
+      .then(res => {
+        console.log(res.data, 'edit contact res');
+        dispatch(setEditContactLoading(false));
+        dispatch(setEditContactSuccess(res.data));
+      })
+      .catch(err => {
+        console.log(err, 'edit contact err');
+        dispatch(setEditContactLoading(false));
+        dispatch(setEditContactError(err));
+      });
   };
-  dispatch(setEditContactLoading(true));
-  dispatch(setEditContactError({}));
-  axiosInstance
-    .put(`/contacts/${id}`, req)
-    .then(res => {
-      console.log(res.data, 'edit contact res');
-      dispatch(setEditContactLoading(false));
-      dispatch(setEditContactSuccess(res.data));
-    })
-    .catch(err => {
-      console.log(err, 'edit contact err');
-      dispatch(setEditContactLoading(false));
-      dispatch(setEditContactError(err));
-    });
-};
 
 export type getContactsActionsType =
   | GetContactstFailedType

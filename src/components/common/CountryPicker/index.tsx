@@ -1,19 +1,24 @@
-import React, {useState} from 'react';
+import React, {useState, FC} from 'react';
 
 import {Box, Text} from '../../../theme';
 import {Modal, TouchableOpacity, SafeAreaView, FlatList} from 'react-native';
-import Icon from '../Icon/Icon';
 import {codesCountryList as data} from '../../../constants/countryCodes';
+import Icon from '../Icon/Icon';
 
-interface Props {
+interface IProps {
   code: string;
   setCountryCode: (code: string) => void;
 }
 
-const CountryPicker = ({code, setCountryCode}: Props) => {
+interface ICountryPickerItem {
+  name: string;
+  dial_code: string | number;
+}
+
+const CountryPicker: FC<IProps> = ({code, setCountryCode}: IProps) => {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
 
-  const renderItem = (item: any) => (
+  const renderItem = ({name, dial_code}: ICountryPickerItem) => (
     <Box>
       <Box flexDirection="row" marginVertical="m">
         <TouchableOpacity

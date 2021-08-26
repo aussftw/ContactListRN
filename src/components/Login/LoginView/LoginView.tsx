@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, FC} from 'react';
 import {Box, Text, useTheme} from '../../../theme';
 import {Container, Input, Button, Icon} from '../../common/index';
 import {useForm, SubmitHandler} from 'react-hook-form';
@@ -14,14 +14,14 @@ import {useScreen} from '../../../hooks/useScreen';
 import {usePlatform} from '../../../hooks/usePlatform';
 import LoginSchema from './ LoginValidation';
 
-interface ILoginView {
-  data?: any;
+interface ILoginView<T> {
+  data?: T;
   loading: boolean;
 }
 
 const logo = require('../../../assets/images/logo.png');
 
-const LoginView = ({data, loading}: ILoginView) => {
+const LoginView: FC<ILoginView> = ({data, loading}: ILoginView) => {
   const [showPassword, setShowPassword] = useState<boolean>(true);
   const navigation = useNavigation();
   const theme = useTheme();
@@ -43,8 +43,6 @@ const LoginView = ({data, loading}: ILoginView) => {
   });
 
   const onSubmit: SubmitHandler<ILoginForm> = data => dispatch(loginUser(data));
-
-  console.log(screen.isSmallDevice, 'DEVICE');
 
   return (
     <>
@@ -85,7 +83,11 @@ const LoginView = ({data, loading}: ILoginView) => {
                       type="FeatherIcon"
                       size={20}
                       name={!showPassword ? 'eye' : 'eye-off'}
-                      color={theme.colors.primary}
+                      color={
+                        errors?.pasword
+                          ? theme.colors.danger
+                          : theme.colors.primary
+                      }
                     />
                   </Box>
                 </TouchableOpacity>

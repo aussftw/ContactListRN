@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 
 import Container from '../../common/Container/Container';
 import {Box} from '../../../theme';
@@ -15,7 +15,9 @@ interface IDrawerContainer {
 
 const logo = require('../../../assets/images/logo.png');
 
-const DrawerContainer = ({navigation}: IDrawerContainer) => {
+const DrawerContainer: FC<IDrawerContainer> = ({
+  navigation,
+}: IDrawerContainer) => {
   const dispatch = useDispatch();
 
   const handleLogOut = () => {

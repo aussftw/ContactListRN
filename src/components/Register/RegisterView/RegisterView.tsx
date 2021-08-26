@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, FC} from 'react';
 import {StyleSheet, Image, TouchableOpacity} from 'react-native';
 import {Box, Text, useTheme} from '../../../theme';
 import {useNavigation} from '@react-navigation/core';
@@ -19,7 +19,10 @@ interface IRegisterView {
   data?: {};
 }
 
-const RegisterView = ({loading, sendForm}: IRegisterView) => {
+const RegisterView: FC<IRegisterView> = ({
+  loading,
+  sendForm,
+}: IRegisterView) => {
   const theme = useTheme();
   const navigation = useNavigation();
   const [showPassword, setShowPassword] = useState<boolean>(false);

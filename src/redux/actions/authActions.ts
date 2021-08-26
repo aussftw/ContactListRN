@@ -2,6 +2,7 @@ import axiosInstance from '../../helpers/axiosInterceptor';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {IRegisterForm, IRegisterError} from '../../types/register';
 import {ILoginForm} from '../../types/login';
+import {AppDispatch} from '../store';
 import {
   REGISTER_FAILED,
   REGISTER_SUCCESS,
@@ -107,7 +108,7 @@ export const setLogoutUser = () => {
 
 export const loginUser =
   ({username, password}: ILoginForm) =>
-  (dispatch: any) => {
+  (dispatch: AppDispatch) => {
     dispatch(setLoginLoading(true));
     dispatch(setLoginError(false));
     axiosInstance
@@ -128,7 +129,7 @@ export const loginUser =
 
 export const registerUser =
   ({username, first_name, last_name, email, password}: IRegisterForm) =>
-  (dispatch: any) => {
+  (dispatch: AppDispatch) => {
     dispatch(setRegisterLoading(true));
     dispatch(setRegisterError(false));
     axiosInstance
@@ -151,7 +152,7 @@ export const registerUser =
       });
   };
 
-export const logoutUser = () => (dispatch: any) => {
+export const logoutUser = () => (dispatch: AppDispatch) => {
   AsyncStorage.removeItem('token');
   AsyncStorage.removeItem('user');
   AsyncStorage.removeItem('order');

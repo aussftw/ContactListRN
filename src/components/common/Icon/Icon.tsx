@@ -15,9 +15,9 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 
-interface IICON {
+interface IICON<T> {
   type: string;
-  name: any;
+  name: T;
   size: number;
   children?: ReactElement | ReactNode;
   color?: string;
